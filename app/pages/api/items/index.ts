@@ -5,7 +5,13 @@ import Item, { IItem } from '../../../models/Item';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
-  await dbConnect();
+  try {
+    // MongoDBへの接続を確立
+    await dbConnect();
+  } catch (error) {
+    console.error('Database connection error:', error);
+    return res.status(500).json({ success: false, error: 'Failed to connect to the database' });
+  }
 
   switch (method) {
     case 'GET':
@@ -13,17 +19,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const items: IItem[] = await Item.find({});
         res.status(200).json({ success: true, data: items });
       } catch (error: any) {
-        res.status(400).json({ success: false, error: error.message });
+        console.error('Error fetching items:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch items' });
       }
       break;
+
     case 'POST':
       try {
         const item: IItem = await Item.create(req.body as IItem);
         res.status(201).json({ success: true, data: item });
       } catch (error: any) {
-        res.status(400).json({ success: false, error: error.message });
+        console.error('Error creating item:', error);
+        res.status(500).json({ success: false, error: 'Failed to create item' });
       }
       break;
+
     default:
       res.setHeader('Allow', ['GET', 'POST']);
       res.status(405).end(`Method ${method} Not Allowed`);
