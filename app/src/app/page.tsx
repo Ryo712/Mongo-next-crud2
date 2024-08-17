@@ -36,8 +36,10 @@ const IndexPage = () => {
       setItems([...items, res.data.data]);
       setName('');
       setDescription('');
+      console.log('successfully added!');
     } catch (err) {
       setError('Failed to add item.');
+      console.error('Failed to add item.');
     }
   };
 

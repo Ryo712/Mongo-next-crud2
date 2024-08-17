@@ -1,4 +1,3 @@
-//pages/items/[id].tsx
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -30,13 +29,23 @@ const ItemPage = () => {
   }, [id]);
 
   const handleUpdate = async () => {
-    const res = await axios.put(`/api/items/${id}`, { name, description });
-    setItem(res.data.data);
+    try {
+      const res = await axios.put(`/api/items/${id}`, { name, description });
+      setItem(res.data.data);
+      console.log('successfully updated!');
+    } catch (err) {
+      console.error('Failed to update item.');
+    }
   };
 
   const handleDelete = async () => {
-    await axios.delete(`/api/items/${id}`);
-    router.push('/');
+    try {
+      await axios.delete(`/api/items/${id}`);
+      console.log('item deleted!');
+      router.push('/');
+    } catch (err) {
+      console.error('Failed to delete item.');
+    }
   };
 
   if (!item) return <div>Loading...</div>;
