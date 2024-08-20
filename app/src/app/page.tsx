@@ -44,22 +44,35 @@ const IndexPage = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: '#ffffff', padding: '20px', minHeight: '100vh' }}>
       <h2>Add New Item</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '400px' }}>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
+          style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
         />
         <input
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
+          style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
         />
-        <button type="submit">Add Item</button>
+        <button type="submit" style={{ 
+          width: '100px', 
+          height: '40px', 
+          padding: '10px', 
+          border: 'none', 
+          backgroundColor: '#0070f3', 
+          color: '#fff', 
+          borderRadius: '4px', 
+          cursor: 'pointer' 
+          }}>
+          Add Item
+        </button>
       </form>
 
       <h1>Item List</h1>
