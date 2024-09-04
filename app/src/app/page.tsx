@@ -45,7 +45,9 @@ const IndexPage = () => {
 
   return (
     <div style={{ backgroundColor: '#ffffff', padding: '20px', minHeight: '100vh' }}>
-      <h2>Add New Item</h2>
+      <h2 style={{ fontSize: '32px', fontWeight: 'bold' }}>
+        Add New Item
+      </h2>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '400px' }}>
         <input
           type="text"
