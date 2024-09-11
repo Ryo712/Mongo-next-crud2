@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../lib/mongodb';
-import Item, { IItem } from '../../../models/Item';
+import Item, { IItem } from '../../../models/Item';  // モデルがどのデータベース/コレクションを参照するかはここで設定されます。
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
@@ -16,7 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   switch (method) {
     case 'GET':
       try {
-        const items: IItem[] = await Item.find({});
+        // Nextdb 直下の items コレクションからデータを取得
+        const items: IItem[] = await Item.find({}); 
         res.status(200).json({ success: true, data: items });
       } catch (error: any) {
         console.error('Error fetching items:', error);
@@ -26,6 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     case 'POST':
       try {
+        // Nextdb 直下の items コレクションにアイテムを作成
         const item: IItem = await Item.create(req.body as IItem);
         res.status(201).json({ success: true, data: item });
       } catch (error: any) {
