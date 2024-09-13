@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     case 'POST':
       try {
-        // Nextdb 直下の items コレクションにアイテムを作成
+        // test 直下の items コレクションにアイテムを作成
         const item: IItem = await Item.create(req.body as IItem);
         res.status(201).json({ success: true, data: item });
       } catch (error: any) {
